@@ -28,7 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('contracts', \App\Http\Controllers\Client\ContractController::class)->except([
             'index',
-            'create'
+            'create',
+            'show'
         ]);
         Route::group(['prefix' => 'contracts'], function (){
             Route::get('/{client}', [App\Http\Controllers\Client\ContractController::class, 'index'])->name('contracts.index');
@@ -38,7 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('requisites', \App\Http\Controllers\Client\RequisiteController::class)->except([
             'index',
-            'create'
+            'create',
+            'show'
         ]);;
         Route::group(['prefix' => 'requisites'], function (){
             Route::get('/{client}', [App\Http\Controllers\Client\RequisiteController::class, 'index'])->name('requisites.index');

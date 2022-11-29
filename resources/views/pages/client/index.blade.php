@@ -155,23 +155,25 @@
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
+                                                <a href="#"  data-bs-toggle="modal"
+                                                   data-bs-target="#modalDelete{{$client->id}}" class="menu-link px-3">Delete</a>
+                                            </div>
+
+                                            <div class="menu-item px-3">
                                                 <a href="{{route('client.addresses.index', $client->id)}}" class="menu-link px-3">Address</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
+
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                                <a href="#"  data-bs-toggle="modal"
-                                                data-bs-target="#modalDelete{{$client->id}}" class="menu-link px-3">Delete</a>
+                                                <a href="{{route('client.requisites.index', $client->id)}}" class="menu-link px-3">Requisites</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                                <a href="" class="menu-link px-3">Requisites</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="" class="menu-link px-3">Contracts</a>
+                                                <a href="{{route('client.contracts.index', $client->id)}}" class="menu-link px-3">Contracts</a>
                                             </div>
 
                                         <!--end::Menu item-->

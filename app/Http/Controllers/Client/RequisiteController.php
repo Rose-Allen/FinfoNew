@@ -12,8 +12,8 @@ class RequisiteController extends Controller
 {
     public function index(Client $client)
     {
-        $clientRequisites = ClientRequisite::where('client_id', $client->id)->get();
-        return view('personal.clientRequisite.index', compact('clientRequisites', 'client'));
+        $requisites = ClientRequisite::where('client_id', $client->id)->get();
+        return view('pages.client.requisite.index', compact('requisites', 'client'));
     }
 
     public function create(Client $client)
@@ -23,11 +23,12 @@ class RequisiteController extends Controller
 
     public function store(ClientRequisiteStoreRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
         ClientRequisite::create($data);
-
-        return redirect()->back();
+        return redirect()->route('client.requisites.index', [$request->client_id]);
     }
+
+
 
     public function edit(ClientRequisite $requisite)
     {
@@ -36,13 +37,12 @@ class RequisiteController extends Controller
 
     public function update(ClientRequisite $requisite, ClientRequisiteUpdateRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
         $requisite->update($data);
-
-        return redirect()->back();
+        return redirect()->route('client.requisites.index', [$request->client_id]);
     }
 
-    public function delete(ClientRequisite $requisite)
+    public function destroy(ClientRequisite $requisite)
     {
         $requisite->delete();
 

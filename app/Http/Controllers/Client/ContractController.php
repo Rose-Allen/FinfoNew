@@ -12,9 +12,8 @@ class ContractController extends Controller
 {
     public function index(Client $client)
     {
-        $clientContracts = ClientContract::where('client_id', $client->id)->get();
-
-        return view('personal.clientContract.index', compact('clientContracts', 'client'));
+        $contracts = ClientContract::where('client_id', $client->id)->get();
+        return view('pages.client.contract.index', compact('contracts', 'client'));
     }
 
     public function create(Client $client)
@@ -24,10 +23,12 @@ class ContractController extends Controller
 
     public function store(ClientContractStoreRequest $request, Client $client)
     {
-        if ($request->hasFile('file')) {
-            $data = $request->validated();
-            ClientContract::create($data)->addMedia($request->file('file'))->toMediaCollection('contract');
-        }
+        $data = $request->all();
+        ClientContract::create($data)->addMedia($request->file('file'))->toMediaCollection('contract');
+//        if ($request->hasFile('file')) {
+//
+//        }
+        return redirect()->back();
     }
 
 
@@ -38,17 +39,17 @@ class ContractController extends Controller
 
     public function update(ClientContractUpdateRequest $request, Client $client, ClientContract $contract)
     {
-        $data = $request->validated();
+        $data = $request->all();
         $contract->update($data);
-
-        $contract->update($data);
+//        $contract->update($data);
         if ($request->hasFile('file')) {
             $contract->clearMediaCollection('contract');
             $contract->addMedia($request->file('file'))->toMediaCollection('contract');
         }
+        return redirect()->back();
     }
 
-    public function delete(ClientContract $contract)
+    public function destroy(ClientContract $contract)
     {
         $contract->delete();
         return redirect()->back();
