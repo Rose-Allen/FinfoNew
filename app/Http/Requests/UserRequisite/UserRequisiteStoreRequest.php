@@ -28,7 +28,7 @@ class UserRequisiteStoreRequest extends FormRequest
             'iik' => 'required',
             'bik' => 'required',
             'kbe' => 'required',
-            'user_id' => 'required',
+            'user_id' => 'nullable',
         ];
     }
 }

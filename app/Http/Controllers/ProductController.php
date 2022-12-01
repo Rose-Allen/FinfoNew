@@ -11,26 +11,25 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('personal.product.index', compact('products'));
+        return view('pages.product.index', compact('products'));
     }
 
     public function create()
     {
-        $user = auth()->user()->id;
-        return view('personal.product.create', compact('user'));
+
     }
 
     public function store(ProductStoreRequest $request)
     {
         $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
         Product::create($data);
-
         return redirect()->back();
     }
 
     public function edit(Product $product)
     {
-        return view('personal.product.edit', compact('product'));
+
     }
 
     public function update(ProductUpdateRequest $request, Product $product)
@@ -38,11 +37,11 @@ class ProductController extends Controller
         $data = $request->validated();
         $product->update($data);
 
-        return redirect()->route('personal.product.index');
+        return redirect()->back();
 
     }
 
-    public function delete(Product $product)
+    public function destroy(Product $product)
     {
         $product->delete();
 

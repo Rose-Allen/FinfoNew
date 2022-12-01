@@ -11,27 +11,26 @@ class RequisiteController extends Controller
 {
     public function index()
     {
-        $userRequisites = UserRequisite::all();
-        return view('personal.userRequisite.index', compact('userRequisites'));
+        $requisites = UserRequisite::all();
+        return view('pages.user.requisite.index', compact('requisites'));
     }
 
     public function create()
     {
-        $user = auth()->user()->id;
-        return view('personal.userRequisite.create', compact('user'));
+
     }
 
     public function store(UserRequisiteStoreRequest $request)
     {
         $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
         UserRequisite::create($data);
-
-        return redirect()->route('personal.user.requisite.index');
+        return redirect()->back();
     }
 
     public function edit(UserRequisite $requisite)
     {
-        return view('personal.userRequisite.edit', compact('requisite'));
+
     }
 
     public function update(UserRequisite $requisite, UserRequisiteUpdateRequest $request)
@@ -39,13 +38,12 @@ class RequisiteController extends Controller
         $data = $request->validated();
         $requisite->update($data);
 
-        return redirect()->route('personal.user.requisite.index');
+        return redirect()->back();
     }
 
-    public function delete(UserRequisite $requisite)
+    public function destroy(UserRequisite $requisite)
     {
         $requisite->delete();
-
         return redirect()->back();
     }
 }

@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 
-    @include('pages.user.requisite.modal.modal-create')
+    @include('pages.product.modal.modal-create')
 
     <!--begin::Content wrapper-->
     <div class="d-flex flex-column flex-column-fluid">
@@ -20,7 +20,7 @@
                 <div class="page-title d-flex flex-column justify-content-center me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        Реквезиты</h1>
+                        Продукты</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -90,11 +90,9 @@
                             <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-125px">Наименование Банка</th>
-                                <th class="min-w-125px">ИИК</th>
-                                <th class="min-w-125px">БИК</th>
-                                <th class="min-w-125px">КБЕ</th>
-                                <th class="min-w-125px">Дата Создание</th>
+                                <th class="min-w-125px">Наименование</th>
+                                <th class="min-w-125px">Описание</th>
+                                <th class="min-w-125px">Дата создания</th>
                                 <th class="text-end min-w-100px">Actions</th>
                             </tr>
                             <!--end::Table row-->
@@ -102,7 +100,7 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-semibold">
-                            @foreach($requisites as $requisite)
+                            @foreach($products as $product)
                                 <!--begin::Table row-->
                                 <tr>
                                     <!--begin::User=-->
@@ -110,24 +108,21 @@
                                         <!--begin::User details-->
                                         <div class="d-flex flex-column">
                                             <a href=""
-                                               class="text-gray-800 text-hover-primary mb-1">{{ $requisite->title_bank }}</a>
+                                               class="text-gray-800 text-hover-primary mb-1">{{ $product->name }}</a>
                                             <span></span>
                                         </div>
                                         <!--begin::User details-->
                                     </td>
                                     <!--end::User=-->
                                     <!--begin::Role=-->
-                                    <td>{{ $requisite->iik }}</td>
+                                    <td>{{ $product->description }}</td>
 
-                                    <td>{{ $requisite->bik }}</td>
                                     <!--end::Role=-->
                                     <!--begin::Last login=-->
-                                    <td>
-                                        <div class="badge badge-light fw-bold">{{ $requisite->kbe }}</div>
-                                    </td>
+
                                     <!--end::Last login=-->
                                     <!--begin::Joined-->
-                                    <td>{{ $requisite->created_at }}</td>
+                                    <td>{{ $product->created_at }}</td>
                                     <!--begin::Joined-->
                                     <!--begin::Action=-->
                                     <td class="text-end">
@@ -151,15 +146,16 @@
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
                                                 <a href="" data-bs-toggle="modal"
-                                                   data-bs-target="#modalEdit{{$requisite->id}}"
+                                                   data-bs-target="#modalEdit{{$product->id}}"
                                                    class="menu-link px-3">Edit</a>
                                             </div>
 
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                                <a href="#"  data-bs-toggle="modal"
-                                                   data-bs-target="#modalDelete{{$requisite->id}}" class="menu-link px-3">Delete</a>
+                                                <a href="#" data-bs-toggle="modal"
+                                                   data-bs-target="#modalDelete{{$product->id}}"
+                                                   class="menu-link px-3">Delete</a>
                                             </div>
 
 
@@ -179,8 +175,8 @@
                                     </td>
                                     <!--end::Action=-->
                                 </tr>
-                                @include('pages.user.requisite.modal.modal-edit')
-                                @include('pages.user.requisite.modal.modal-delete')
+                                @include('pages.product.modal.modal-edit')
+                                @include('pages.product.modal.modal-delete')
                                 <!--end::Table row-->
                             @endforeach
                             </tbody>
