@@ -366,6 +366,22 @@
                         </a>
                         <!--end::Link-->
                     </div>
+                    <div class="col mb-4">
+                        <!--begin::Link-->
+                        <a href="{{route('user.addresses.index')}}"
+                           class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-90px h-90px border-gray-200"
+                           data-kt-button="true">
+                            <!--begin::Icon-->
+                            <span class="mb-2">
+                               <img src="{{asset('assets/media/icons/duotune/general/gen014.svg')}}"/>
+                            </span>
+                            <!--end::Icon-->
+                            <!--begin::Label-->
+                            <span class="fs-7 fw-bold">Address</span>
+                            <!--end::Label-->
+                        </a>
+                        <!--end::Link-->
+                    </div>
                     <!--end::Col-->
                 </div>
                 <!--end::Row-->

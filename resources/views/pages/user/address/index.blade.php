@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', 'Clients')
+@section('title', 'Адреса')
 @section('style')
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
           type="text/css"/>
     <!--end::Vendor Stylesheets-->
 @endsection
-@section('content')
 
+@section('content')
     <!--begin::Content wrapper-->
     <div class="d-flex flex-column flex-column-fluid">
         <!--begin::Toolbar-->
@@ -18,25 +18,20 @@
                 <div class="page-title d-flex flex-column justify-content-center me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        Address List</h1>
+                        Адреса</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('client.index') }}" class="text-muted text-hover-primary">Clients</a>
+                            <a href="" class="text-muted text-hover-primary">Клиенты</a>
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item">
-                            <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                        </li>
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">
-                            address
-                        </li>
-                        <!--end::Item-->
+                    {{--                        <li class="breadcrumb-item">--}}
+                    {{--                            <span class="bullet bg-gray-400 w-5px h-2px"></span>--}}
+                    {{--                        </li>--}}
+                    <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
                 </div>
@@ -44,8 +39,7 @@
                 <!--start::Action-->
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <!--begin::Primary button-->
-                    <a href="{{ route('address.create', $client->id) }}"
-                       class="btn btn-sm fw-bold btn-primary">Create</a>
+                    <a href="{{route('user.addresses.create')}}" class="btn btn-sm fw-bold btn-primary">Create</a>
                     <!--end::Primary button-->
                 </div>
                 <!--end::Action-->
@@ -93,9 +87,12 @@
                             <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-125px">Address</th>
-                                <th class="min-w-125px">Home</th>
-                                <th class="min-w-125px">Flat</th>
+                                <th class="min-w-125px">Страна</th>
+                                <th class="min-w-125px">Город</th>
+                                <th class="min-w-125px">Адрес</th>
+                                <th class="min-w-125px">Дом</th>
+                                <th class="min-w-125px">Кв</th>
+                                <th class="min-w-125px">Создание</th>
                                 <th class="text-end min-w-100px">Actions</th>
                             </tr>
                             <!--end::Table row-->
@@ -106,15 +103,36 @@
                             @foreach($addresses as $address)
                                 <!--begin::Table row-->
                                 <tr>
+                                    <!--begin::User=-->
                                     <td class="d-flex align-items-center">
+                                        <!--begin::User details-->
                                         <div class="d-flex flex-column">
-                                            <span>{{ $address->address }}</span>
+                                            <a href=""
+                                               class="text-gray-800 text-hover-primary mb-1"></a>
+                                            <span>{{ $address->country->name }}</span>
                                         </div>
+                                        <!--begin::User details-->
                                     </td>
-                                    <td>{{ $address->home }}</td>
+                                    <!--end::User=-->
+                                    <!--begin::Role=-->
+                                    <td>{{ $address->city->name }}</td>
+                                    <!--end::Role=-->
+                                    <!--begin::Last login=-->
+                                    <td>
+                                        <div class="badge badge-light fw-bold">{{ $address->address }}</div>
+                                    </td>
+
+                                    <td>
+                                        <div class="badge badge-light fw-bold">{{ $address->home }}</div>
+                                    </td>
+
                                     <td>
                                         <div class="badge badge-light fw-bold">{{ $address->flat }}</div>
                                     </td>
+                                    <!--end::Last login=-->
+                                    <!--begin::Joined-->
+                                    <td>{{ $address->created_at }}</td>
+                                    <!--begin::Joined-->
                                     <!--begin::Action=-->
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
@@ -134,12 +152,35 @@
                                         <div
                                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="{{route('user.addresses.edit', $address->id)}}"
+                                                   class="menu-link px-3">Edit</a>
+                                            </div>
 
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" data-bs-toggle="modal"
+                                                   data-bs-target="#modalDelete{{$address->id}}" class="menu-link px-3">Delete</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+
+
+                                            <!--end::Menu item-->
                                         </div>
                                         <!--end::Menu-->
                                     </td>
                                     <!--end::Action=-->
                                 </tr>
+
+                                @include('pages.user.address.modal.modal-delete')
                                 <!--end::Table row-->
                             @endforeach
                             </tbody>

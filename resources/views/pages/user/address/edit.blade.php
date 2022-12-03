@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Clients')
+@section('title', 'Address')
 @section('style')
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
@@ -65,15 +65,16 @@
                     <div class="card-header border-0 pt-6">
                         <!--begin::Card title-->
                         <div class="card-title">
-                            Add new address
+                            Edit address
                         </div>
                         <!--begin::Card title-->
                     </div>
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body py-4">
-                        <form class="form" action="{{route('user.addresses.store')}}" method="post">
+                        <form class="form" action="{{route('user.addresses.update', $address->id)}}" method="post">
                         @csrf
+                        @method('patch')
                         <!--begin::Input group-->
                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                 <!--begin::Label-->
@@ -83,7 +84,7 @@
                                 <!--end::Label-->
                                 <!--begin::Input-->
                                 <input id="address" type="text" class="form-control form-control-solid" name="address"
-                                       value="{{old('address')}}">
+                                       value="{{$address->address}}">
                                 @error('address')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -104,7 +105,7 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input id="flat" type="text" class="form-control form-control-solid"
-                                               name="flat" value="{{old('flat')}}">
+                                               name="flat" value="{{$address->flat}}">
 
                                         @error('flat')
                                         <div class="text-danger">{{$message}}</div>
@@ -126,7 +127,7 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input id="home" type="text" class="form-control form-control-solid" name="home"
-                                               value="{{old('home')}}">
+                                               value="{{$address->home}}">
                                         @error('home')
                                         <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -157,7 +158,7 @@
                                                         name="country_id">
                                                     @foreach($countries as $country)
                                                         <option value="{{$country->id}}"
-                                                            {{$country->id == old('country_id') ? 'selected' : '' }}
+                                                            {{$country->id == $address->country_id ? 'selected' : '' }}
                                                         >{{$country->name}}</option>
                                                     @endforeach
                                                 </select>
@@ -187,7 +188,7 @@
                                                         name="city_id">
                                                     @foreach($cities as $city)
                                                         <option value="{{$city->id}}"
-                                                            {{$city->id == old('city_id') ? 'selected' : '' }}
+                                                            {{$city->id == $address->city_id ? 'selected' : '' }}
                                                         >{{$city->name}}</option>
                                                     @endforeach
                                                 </select>
@@ -207,19 +208,20 @@
                             <!--begin::Action buttons-->
                             <div class="d-flex justify-content-end">
                                 <!--begin::Button-->
-                                <button type="reset" data-kt-contacts-type="cancel" class="btn btn-light me-3"
-                                        onclick="window.location.href ='{{ route('user.addresses.index')}}';">
-                                    Cancel
-                                </button>
+{{--                                <button type="reset" data-kt-contacts-type="cancel" class="btn btn-light me-3"--}}
+{{--                                        --}}{{--                                        onclick="window.location.href ='{{ route('client.addresses.index',$client->id)}}';">--}}
+{{--                                        Cancel--}}
+{{--                                </button>--}}
                                 <!--end::Button-->
                                 <!--begin::Button-->
                                 <button type="submit" class="btn btn-primary">
-                                    Save
+                                    Изменить
                                 </button>
                                 <!--end::Button-->
                             </div>
                             <!--end::Action buttons-->
                         </form>
+
                     </div>
                     <!--end::Card body-->
                 </div>

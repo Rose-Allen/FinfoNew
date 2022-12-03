@@ -29,7 +29,6 @@ class AddressController extends Controller
     public function store(AddressStoreRequest $request)
     {
         Address::query()->create($request->all());
-
         return redirect()->route('client.addresses.index', [$request->client_id]);
     }
 

@@ -3,58 +3,63 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Address\AddressStoreRequest;
-use App\Http\Requests\Address\AddressUpdateRequest;
+
+use App\Http\Requests\Address\UserAddressStoreRequest;
+use App\Http\Requests\Address\UserAddressUpdateRequest;
+use App\Http\Requests\UserRequisite\UserRequisiteStoreRequest;
 use App\Models\Address;
 use App\Models\AddressCity;
 use App\Models\AddressCountry;
 use App\Models\Client;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
     public function index(Client $client)
     {
-        $addresses = Address::where('client_id', $client->id)->get();
-        return view('pages.address.index', compact('addresses', 'client'));
+        $addresses = UserAddress::all();
+        return view('pages.user.address.index', compact('addresses'));
     }
 
-    public function create(Client $client)
+    public function create()
     {
         $cities = AddressCity::all();
         $countries = AddressCountry::all();
-        return view('pages.address.create', compact('cities', 'countries', 'client'));
+        return view('pages.user.address.create', compact('cities', 'countries'));
     }
 
-    public function store(AddressStoreRequest $request)
+    public function store(UserAddressStoreRequest $request)
     {
-        Address::query()->create($request->all());
-
-        return redirect()->route('address.index', [$request->client_id]);
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
+        UserAddress::query()->create($data);
+        return redirect()->route('user.addresses.index');
     }
 
     public function show(Address $address, Client $client)
     {
-        return view('personal.address.show', compact('address', 'client'));
+
     }
 
-    public function edit(Address $address, Client $client)
+    public function edit(UserAddress $address)
     {
+
         $cities = AddressCity::all();
         $countries = AddressCountry::all();
-        return view('personal.address.edit', compact('address', 'countries', 'cities', 'client'));
+        return view('pages.user.address.edit', compact('address', 'countries', 'cities'));
     }
 
-    public function update(AddressUpdateRequest $request, Address $address)
+    public function update(UserAddressUpdateRequest $request, UserAddress $address)
     {
         $data = $request->validated();
         $address->update($data);
-        return redirect()->route('personal.address.show', $address->id);
+        return redirect()->route('user.addresses.index');
     }
 
-    public function delete(Address $address, Client $client)
+    public function destroy(UserAddress $address, Client $client)
     {
         $address->delete();
-        return redirect()->route('personal.address.index', $client->id);
+        return redirect()->back();
     }
 }
