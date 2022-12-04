@@ -24,6 +24,7 @@ class ProductController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         Product::create($data);
+        alert()->success('Поздравляю!','Вы добавили продукт');
         return redirect()->back();
     }
 
@@ -36,7 +37,7 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $product->update($data);
-
+        alert()->success('Поздравляю!','Вы изменили продукт');
         return redirect()->back();
 
     }
@@ -44,7 +45,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-
+        alert()->success('Поздравляю!','Вы удалили продукт');
         return redirect()->back();
     }
 

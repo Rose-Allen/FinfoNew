@@ -13,6 +13,7 @@ use App\Models\AddressCountry;
 use App\Models\Client;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AddressController extends Controller
 {
@@ -34,6 +35,7 @@ class AddressController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         UserAddress::query()->create($data);
+        alert()->success('Поздравляю!','Вы добавили адрес');
         return redirect()->route('user.addresses.index');
     }
 
@@ -54,12 +56,14 @@ class AddressController extends Controller
     {
         $data = $request->validated();
         $address->update($data);
+        alert()->info('Поздравляю!','Вы изменили адрес');
         return redirect()->route('user.addresses.index');
     }
 
     public function destroy(UserAddress $address, Client $client)
     {
         $address->delete();
+        alert()->success('Поздравляю!','Вы удалили адрес');
         return redirect()->back();
     }
 }

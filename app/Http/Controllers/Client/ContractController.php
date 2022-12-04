@@ -25,6 +25,7 @@ class ContractController extends Controller
     {
         $data = $request->all();
         ClientContract::create($data)->addMedia($request->file('file'))->toMediaCollection('contract');
+        alert()->success('Поздравляю!','Вы добавили контракт');
 //        if ($request->hasFile('file')) {
 //
 //        }
@@ -46,12 +47,14 @@ class ContractController extends Controller
             $contract->clearMediaCollection('contract');
             $contract->addMedia($request->file('file'))->toMediaCollection('contract');
         }
+        alert()->info('Поздравляю!','Вы изменили контракт');
         return redirect()->back();
     }
 
     public function destroy(ClientContract $contract)
     {
         $contract->delete();
+        alert()->success('Поздравляю!','Вы удалили контракт');
         return redirect()->back();
     }
 }

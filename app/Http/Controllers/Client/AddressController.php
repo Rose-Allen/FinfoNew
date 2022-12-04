@@ -29,6 +29,7 @@ class AddressController extends Controller
     public function store(AddressStoreRequest $request)
     {
         Address::query()->create($request->all());
+        alert()->success('Поздравляю!','Вы добавили адрес');
         return redirect()->route('client.addresses.index', [$request->client_id]);
     }
 
@@ -49,12 +50,14 @@ class AddressController extends Controller
 
         $data = $request->all();
         $address->update($data);
+        alert()->info('Поздравляю!','Вы изменили адрес');
         return redirect()->route('client.addresses.index', [$request->client_id]);
     }
 
     public function destroy(Address $address, Client $client)
     {
         $address->delete();
+        alert()->success('Поздравляю!','Вы удалили адрес');
         return redirect()->back();
     }
 }

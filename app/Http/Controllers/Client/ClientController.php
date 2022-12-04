@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ClientController extends Controller
 {
@@ -49,7 +50,7 @@ class ClientController extends Controller
             'company_name' => $company_name,
             'business_name' => $business_name,
         ]);
-
+        alert()->success('Поздравляю!','Вы добавили клиента');
         return redirect()->back();
     }
 
@@ -70,6 +71,7 @@ class ClientController extends Controller
             ]
         );
         $client->update($data);
+        alert()->info('Поздравляю!','Вы изменили клиента');
         return redirect()->back();
 
     }
@@ -77,7 +79,7 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         $client->delete();
-
+        alert()->success('Поздравляю!','Вы удалили клиента');
         return redirect()->back();
     }
 

@@ -25,9 +25,9 @@ class RequisiteController extends Controller
     {
         $data = $request->all();
         ClientRequisite::create($data);
+        alert()->success('Поздравляю!', 'Вы добавили реквизит');
         return redirect()->route('client.requisites.index', [$request->client_id]);
     }
-
 
 
     public function edit(ClientRequisite $requisite)
@@ -39,13 +39,14 @@ class RequisiteController extends Controller
     {
         $data = $request->all();
         $requisite->update($data);
+        alert()->info('Поздравляю!', 'Вы изменили реквизит');
         return redirect()->route('client.requisites.index', [$request->client_id]);
     }
 
     public function destroy(ClientRequisite $requisite)
     {
         $requisite->delete();
-
+        alert()->success('Поздравляю!', 'Вы удалили реквизит');
         return redirect()->back();
     }
 }

@@ -17,7 +17,6 @@ class RequisiteController extends Controller
 
     public function create()
     {
-
     }
 
     public function store(UserRequisiteStoreRequest $request)
@@ -25,6 +24,7 @@ class RequisiteController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         UserRequisite::create($data);
+        alert()->success('Поздравляю!','Вы добавили реквизит');
         return redirect()->back();
     }
 
@@ -37,13 +37,14 @@ class RequisiteController extends Controller
     {
         $data = $request->validated();
         $requisite->update($data);
-
+        alert()->info('Поздравляю!', 'Вы изменили реквизит');
         return redirect()->back();
     }
 
     public function destroy(UserRequisite $requisite)
     {
         $requisite->delete();
+        alert()->success('Поздравляю!','Вы удалили реквизит');
         return redirect()->back();
     }
 }

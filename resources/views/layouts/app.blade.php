@@ -30,6 +30,7 @@
     <!--end::App-->
 
 @include('elements.scripts')
+@include('sweetalert::alert')
 @stack('scripts')
 </body>
 </html>

@@ -196,6 +196,7 @@
         </div>
         <!--end::Content-->
     </div>
+    @include('sweetalert::alert')
     <!--end::Content wrapper-->
 
 @endsection
